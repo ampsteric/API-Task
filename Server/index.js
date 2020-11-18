@@ -47,7 +47,7 @@ app.post('/vendor/register' , async(req,res)=>{
         });
     
         const result = await CreatedVendor.save();
-        res.status(1);
+        res.send(result);
     }
         catch(err){
             console.log(err);
@@ -65,11 +65,11 @@ app.post('/user/login' , async(req,res)=>{
     })
     if(result){
             console.log(result)
-            res.status(200).send('ok')
+            res.status(200).send('You are successfully logedIn')
 
     }
     else
-    res.status(200).send('Nope')
+    res.status(200).send('User Not registered')
 
     }
     catch(err){
@@ -83,12 +83,18 @@ app.post('/vendor/login' , async(req,res)=>{
     const {mobile , password} = req.body;
 
     try{
-        const result = Vendor.find({
+        const result = Vendor.findOne({
         mobile,
         password,
     });
 
-    res.status(200).send('ok')
+    if(result){
+        console.log(result)
+        res.status(200).send('You are successfully logedIn')
+
+    }
+    else
+    res.status(200).send('User Not registered')
     }
     catch(err){
         console.log(err);
